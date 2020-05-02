@@ -31,11 +31,11 @@ async def help ( ctx ):
 	emb = discord.Embed( title = 'Навигация по командам')
 
 	emb.add_field( name = '{}clear'.format(PREFIX), value='очистка чата')
-	emb.add_field( name = '{}ban'.format(PREFIX), value='Ограничение доступа к серверу. ')
+	emb.add_field( name = '{}ban @name'.format(PREFIX), value='Ограничение доступа к серверу. ')
 	emb.add_field( name = '{}unban'.format(PREFIX), value='Удаление ограничения доступа к серверу.')
-	emb.add_field( name = '{}mute'.format(PREFIX), value='Запретить писать в чат.')
-	emb.add_field( name = '{}unmute'.format(PREFIX), value='Разрешить писать в чат.')
-	emb.add_field( name = '{}kick'.format(PREFIX), value='Удаление участника с сервера.')
+	emb.add_field( name = '{}mute time @name'.format(PREFIX), value='Запретить писать в чат.')
+	emb.add_field( name = '{}unmute @name'.format(PREFIX), value='Разрешить писать в чат.')
+	emb.add_field( name = '{}kick @name'.format(PREFIX), value='Удаление участника с сервера.')
 	emb.add_field( name = '_', value='_')
 	emb.add_field( name = '{}help'.format(PREFIX), value='Показать это сообщение.')
 	emb.add_field( name = '_', value='_')
@@ -102,24 +102,20 @@ async def clear(ctx, amount = 100):
 #mute
 @Bot.command()
 @commands.has_any_role("kicker" )
-async def mute(ctx, member: discord.Member):
-	await ctx.channel.purge(limit = 1)
-
+async def mute(ctx, time: int, member: discord.Member):
 	mute_role = discord.utils.get( ctx.message.guild.roles, name = 'mute')
-
 	await member.add_roles( mute_role )
-	await ctx.send(f'y { member.mention } ограничение чата, за нарушение правил!')
-#gl.moder
-@Bot.command()
-@commands.has_any_role("kicker" )
-async def lol(ctx, member: discord.Member):
-	await ctx.channel.purge(limit = 1)
-
-	mute_role = discord.utils.get( ctx.message.guild.roles, name = 'Гл.модератор')
-
 	await member.add_roles( mute_role )
-	await ctx.send(f'y { member.mention } Выдан!')
 	
+
+	if time > 0:
+		await ctx.send(f'y { member.mention } ограничение чата, за нарушение правил! На {time} минут!')
+		await asyncio.sleep(time * 60)
+		await member.remove_roles( mute_role )
+		await ctx.send(f'y { member.mention } снят мут, больше не нарушай!')
+
+
+
 #unmute
 @Bot.command()
 @commands.has_any_role("kicker" )
