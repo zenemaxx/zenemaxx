@@ -121,16 +121,11 @@ async def mute(ctx, time: int, member: discord.Member):
 @commands.has_any_role("kicker" )
 async def test(ctx, time: int, member: discord.Member):
 	mute_role = discord.utils.get( ctx.message.guild.roles, name = 'test')
-	await member.add_roles( mute_role )
-	await member.add_roles( mute_role )
+	await member.add_roles( test_role )
+	await member.add_roles( test_role )
 	
 
-	if time > 0:
-		await ctx.send(f'y { member.mention } ограничение чата, за нарушение правил! На {time} минут!')
-		await asyncio.sleep(time * 60)
-		await member.remove_roles( mute_role )
-		await ctx.send(f'y { member.mention } снят мут, больше не нарушай!')
-
+	
 #unmute
 @Bot.command()
 @commands.has_any_role("kicker" )
