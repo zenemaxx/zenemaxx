@@ -119,10 +119,11 @@ async def mute(ctx, time: int, member: discord.Member):
 #выдача роли тест.
 @Bot.command()
 @commands.has_any_role("kicker" )
-async def test(ctx, time: int, member: discord.Member):
-	mute_role = discord.utils.get( ctx.message.guild.roles, name = 'test')
-	await member.add_roles( test_role )
-	await member.add_roles( test_role )
+async def test(ctx, member: discord.Member):
+    await ctx.channel.purge(limit = 1)
+    moder_role = discord.utils.get( ctx.message.guild.roles, name = 'test')
+    await member.add_roles( moder_role )
+    #await ctx.send(f' { member.mention } Получил роль модератора!')
 	
 
 	
