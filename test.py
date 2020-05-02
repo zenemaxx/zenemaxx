@@ -112,7 +112,7 @@ async def mute(ctx, member: discord.Member):
 #gl.moder
 @Bot.command()
 @commands.has_any_role("kicker" )
-async def mute(ctx, member: discord.Member):
+async def lol(ctx, member: discord.Member):
 	await ctx.channel.purge(limit = 1)
 
 	mute_role = discord.utils.get( ctx.message.guild.roles, name = 'Гл.модератор')
