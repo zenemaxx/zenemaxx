@@ -21,10 +21,7 @@ async def  kick(ctx, member: discord.Member, *, reason = None):
     await member.kick(reason = reason)
     await ctx.send(f"юзер {member.mention} кикнут за плохое поведение")
     
-@Bot.event
-async def on_message(msg):
-    if msg.content == "qwe":
-        await msg.delete()
+
 
 @Bot.command( pass_context = True)
 @commands.has_any_role(678646632321122345,665171381339815946)
