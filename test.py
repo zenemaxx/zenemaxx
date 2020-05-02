@@ -1,33 +1,45 @@
 import discord
-import os
 from discord.ext import commands
 from datetime import datetime
+import os
 today = datetime.now().date()
 tm = datetime.now()
 vrem = "   {}:{}".format(tm.hour, tm.minute)
 today = datetime.now().date()
 tm = datetime.now()
 vrem = "   {}:{}".format(tm.hour, tm.minute)
+
+
 Bot = commands.Bot(command_prefix = '!')
+
+
+ploxie_slova = []#список запрещенных слов.
+
+
+#ready
 @Bot.event
 async def on_ready():
     print('We have logged in as {0.user}'.format(Bot))
 
-@Bot.command( pass_context = True)
-@commands.has_any_role("kicker")
-async def  kick(ctx, member: discord.Member, *, reason = None):
-    await ctx.channel.purge(limit = 1)#СТИРАЕМ СООБЩЕНИЕ С КОММАНДОЙ .kcik
-
-    await member.kick(reason = reason)
-    await ctx.send(f"юзер {member.mention} кикнут за плохое поведение")
-    
+#antimat
 @Bot.event
 async def on_message(msg):
     if msg.content == "qwe":
         await msg.delete()
 
+
+#kick
+@Bot.command( pass_context = True )
+@commands.has_any_role("kicker" )
+async def  kick(ctx, member: discord.Member, *, reason = None):
+	await ctx.channel.purge(limit = 1)#СТИРАЕМ СООБЩЕНИЕ С КОММАНДОЙ .kcik
+
+	await member.kick(reason = reason)
+	await ctx.send(f"юзер {member.mention} кикнут за плохое поведение")
+
+#ban
 @Bot.command( pass_context = True)
-@commands.has_any_role("kicker")
+@commands.has_any_role("kicker" )
 async def banan(ctx, member: discord.Member, *, reason = None):
     emb = discord.Embed(title = '{}  в {}'.format(today, vrem), color = discord.Color.red())
     await ctx.channel.purge(limit = 1)#удаляем сообщение с этой командой из чата
