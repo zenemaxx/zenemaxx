@@ -21,11 +21,7 @@ ploxie_slova = []#список запрещенных слов.
 async def on_ready():
     print('We have logged in as {0.user}'.format(Bot))
 
-#antimat
-@Bot.event
-async def on_message(msg):
-    if msg.content == "qwe":
-        await msg.delete()
+
 
 
 #kick
