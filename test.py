@@ -14,7 +14,7 @@ async def on_ready():
     print('We have logged in as {0.user}'.format(Bot))
 
 @Bot.command( pass_context = True)
-@commands.has_any_role(678646632321122345,665171381339815946)
+@commands.has_any_role("kicker")
 async def  kick(ctx, member: discord.Member, *, reason = None):
     await ctx.channel.purge(limit = 1)#СТИРАЕМ СООБЩЕНИЕ С КОММАНДОЙ .kcik
 
@@ -27,7 +27,7 @@ async def on_message(msg):
         await msg.delete()
 
 @Bot.command( pass_context = True)
-@commands.has_any_role(678646632321122345,665171381339815946)
+@commands.has_any_role("kicker")
 async def banan(ctx, member: discord.Member, *, reason = None):
     emb = discord.Embed(title = '{}  в {}'.format(today, vrem), color = discord.Color.red())
     await ctx.channel.purge(limit = 1)#удаляем сообщение с этой командой из чата
