@@ -124,6 +124,16 @@ async def unmute(ctx, member: discord.Member):
 	await ctx.send(embed = emb)
 	await member.remove_roles( mute_role )
 
+#выдача роли гл.модератор.
+@Bot.command()
+@commands.has_any_role("kicker" )
+async def moder(ctx, member: discord.Member):
+    await ctx.channel.purge(limit = 1)
+    moder_role = discord.utils.get( ctx.message.guild.roles, name = 'Гл.Модератор')
+    await member.add_roles( moder_role )
+    #await ctx.send(f' { member.mention } Получил роль модератора!')
+
+
 
 #mute
 @Bot.command()
