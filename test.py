@@ -1,32 +1,53 @@
+#UPD 03.05.2020: Добавлена функция выдачи роли, повикшены недочеты, обновлено меню !help. Добавлены emb в команды: !mute, !unmute, !kick. Команда !banan переименована в !ban.
+#UPD 03.05.2020(2): Приветствие пользвоателя при входе не сервере. Комада !giverole and !removerole добавлены(использовать могут только с ролью).
+#UPD 04.05.2020: Обновлено приветствие. Добавлено сообщение при выходе с сервера. Если выйти с серва с ролью mute = бан.
+#UPD 05.05.2020: Обновлено меню !help
 import discord
 from discord.ext import commands
 from datetime import datetime
 import asyncio
 import os
+
+
 today = datetime.now().date()
 tm = datetime.now()
 vrem = "   {}:{}".format(tm.hour, tm.minute)
 today = datetime.now().date()
 tm = datetime.now()
 vrem = "   {}:{}".format(tm.hour, tm.minute)
-
-#UPD 03.05.2020: Добавлена функция выдачи роли, повикшены недочеты, обновлено меню !help. Добавлены emb в команды: !mute, !unmute, !kick. Команда !banan переименована в !ban.
-
-
-
 PREFIX = '!'
-
 Bot = commands.Bot(command_prefix = '!')
-
 Bot.remove_command ('help')
 ploxie_slova = ['мать ебал', 'м']#список запрещенных слов.
-
+EXROLE = 705126936539693058
 
 #ready
 @Bot.event
 async def on_ready():
     print('We have logged in as {0.user}'.format(Bot))
 
+
+#Welcome
+@Bot.event
+async def on_member_join(member):
+    for channel in member.guild.channels:
+        if str(channel) == "flood":
+            await channel.send(f"""НА СЕРВЕР ЗАЛЕТЕЛ {member.mention} """)
+
+#leave
+@Bot.event
+async def on_member_remove(member):
+	for channel in member.guild.channels:
+		if str(channel) == "flood":
+			await channel.send(f"""Нас покинул {member.mention}""")
+	roli = member.roles #Список ролей КОНКРЕТНОГО юзера
+	for rol in roli:
+		if rol.id == EXROLE: #ЕСЛИ РОЛЬ = EVERYONE =>
+			continue #ПРОПУСКАЕМ(СЛЕДУЮЩАЯ ИТЕРАЦИЯ)
+		else:
+			if str(rol.id) == '706195044498931783':
+				await member.ban(reason = 'ОБХОД МУТА')
+			
 #Help
 @Bot.command()
 @commands.has_any_role("kicker" )
@@ -36,14 +57,14 @@ async def help ( ctx ):
 	emb = discord.Embed( title = 'Навигация по командам')
 
 	emb.add_field( name = '{}clear'.format(PREFIX), value='очистка чата')
-	emb.add_field( name = '{}ban @name'.format(PREFIX), value='Ограничение доступа к серверу. ')
-	emb.add_field( name = '{}unban'.format(PREFIX), value='Удаление ограничения доступа к серверу.')
-	emb.add_field( name = '{}mute time @name'.format(PREFIX), value='Запретить писать в чат.')
+	emb.add_field( name = '{}ban @name reason'.format(PREFIX), value='Ограничение доступа к серверу. ')
+	emb.add_field( name = '{}unban name#xxxx'.format(PREFIX), value='Удаление ограничения доступа к серверу.')
+	emb.add_field( name = '{}mute @name time reason'.format(PREFIX), value='Запретить писать в чат.')
 	emb.add_field( name = '{}unmute @name'.format(PREFIX), value='Разрешить писать в чат.')
 	emb.add_field( name = '{}kick @name'.format(PREFIX), value='Удаление участника с сервера.')
 	emb.add_field( name = '{}role rolename'.format(PREFIX), value='Получить роль.')
 	emb.add_field( name = '{}help'.format(PREFIX), value='Показать это сообщение.')
-	emb.add_field( name = '_', value='_')
+	emb.add_field( name = '{}giverole/removerole @name role'.format(PREFIX), value='Снять/выдать роль')
 
 	await ctx.send(embed = emb)
 
@@ -124,16 +145,6 @@ async def unmute(ctx, member: discord.Member):
 	await ctx.send(embed = emb)
 	await member.remove_roles( mute_role )
 
-#выдача роли гл.модератор.
-@Bot.command()
-@commands.has_any_role("kicker" )
-async def moder(ctx, member: discord.Member):
-    await ctx.channel.purge(limit = 1)
-    moder_role = discord.utils.get( ctx.message.guild.roles, name = 'Гл.Модератор')
-    await member.add_roles( moder_role )
-    #await ctx.send(f' { member.mention } Получил роль модератора!')
-
-
 
 #mute
 @Bot.command()
@@ -155,11 +166,11 @@ async def mute(ctx,  member: discord.Member, time: int, reason = None):
 		await ctx.send(f'y { member.mention } снят мут, больше не нарушай!')
 
 
-EXROLE = 705126936539693058
 
+
+#role
 @Bot.command()
 async def role(ctx, role: str ):
-	await ctx.channel.purge(limit = 1)
 	member = ctx.message.author
 	roli = member.roles #Список ролей КОНКРЕТНОГО юзера
 	role = discord.utils.get( ctx.message.guild.roles, name = role)
@@ -180,6 +191,15 @@ async def role(ctx, role: str ):
 	else:
 		await ctx.send(f'У вас слишком много ролей!')
 
+#giverole
+@Bot.command()
+@commands.has_any_role("kicker" )
+async def giverole(ctx, member: discord.Member, role: str ):
+	await ctx.channel.purge(limit = 1)
+	role = discord.utils.get( ctx.message.guild.roles, name = role)
+	await member.add_roles( role )
+	await ctx.send(f' { member } получил роль {role}')
+
 #removerole
 @Bot.command()
 @commands.has_any_role("kicker" )
@@ -187,7 +207,8 @@ async def removerole(ctx, member: discord.Member, role: str ):
 	await ctx.channel.purge(limit = 1)
 	role = discord.utils.get( ctx.message.guild.roles, name = role)
 	await member.remove_roles( role )
-	await ctx.send(f' { member } лишился роли {role}')
+	await ctx.send(f' { member } получил роль {role}')
+
 
 token = os.environ.get('BOT_TOKEN')
 Bot.run(str(token))
