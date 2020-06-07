@@ -461,7 +461,7 @@ async def clear(ctx, amount = 100):
 async def unmute(ctx, member: discord.Member):
 	await ctx.channel.purge(limit = 1)
 
-	mute_role = discord.utils.get( ctx.message.guild.roles, name = 'mute')
+	mute_role = discord.utils.get( ctx.message.guild.roles, name = 'Заглушка')
 	emb = discord.Embed(title = '{}  в {}'.format(today, vrem), color = discord.Color.green())
 	emb.set_author(name = member.name, icon_url = member.avatar_url)
 	emb.add_field(name = 'Unmute user', value = 'Юзеру {}'.format(member) + ' снят мут.')
