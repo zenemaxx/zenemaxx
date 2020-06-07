@@ -145,10 +145,10 @@ async def help ( ctx ):
 	emb.add_field( name = '{}role rolename'.format(PREFIX), value='Получить роль.')
 	emb.add_field( name = '{}help'.format(PREFIX), value='Показать это сообщение.')
 	emb.add_field( name = '{}giverole/removerole @name role'.format(PREFIX), value='Снять/выдать роль')
-	#emb.add_field( name = '{}работать'.format(PREFIX), value='Начать работать.')
-	#emb.add_field( name = '{}казино summa'.format(PREFIX), value='Игра в казино.')
-	#emb.add_field( name = '{}стакан 1-3 сумма'.format(PREFIX), value='Игра в стаканчики.')
-	#emb.add_field( name = '{}курс вверх/вниз сумма'.format(PREFIX), value='Угадать курс.')
+	emb.add_field( name = '{}работать'.format(PREFIX), value='Начать работать.')
+	emb.add_field( name = '{}казино summa'.format(PREFIX), value='Игра в казино.')
+	emb.add_field( name = '{}стакан 1-3 сумма'.format(PREFIX), value='Игра в стаканчики.')
+	emb.add_field( name = '{}курс вверх/вниз сумма'.format(PREFIX), value='Угадать курс.')
 
 	await ctx.send(embed = emb)
 
