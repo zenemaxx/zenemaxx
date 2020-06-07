@@ -390,7 +390,7 @@ async def деньги(ctx, member: discord.Member, mani: int ):
 
 #kick
 @Bot.command( pass_context = True )
-@commands.has_any_role("712387936347488281","" )
+@commands.has_any_role("⚒ Красная администрация ⚒","" )
 async def  kick(ctx, member: discord.Member, *, reason = None):
 	await ctx.channel.purge(limit = 1)#СТИРАЕМ СООБЩЕНИЕ С КОММАНДОЙ .kcik
 	emb = discord.Embed(title = '{}  в {}'.format(today, vrem), color = discord.Color.red())
@@ -402,7 +402,7 @@ async def  kick(ctx, member: discord.Member, *, reason = None):
 
 #ban
 @Bot.command( pass_context = True)
-@commands.has_any_role("712387936347488281","" )
+@commands.has_any_role("⚒ Красная администрация ⚒","" )
 async def ban(ctx, member: discord.Member, *, reason = None):
 	emb = discord.Embed(title = '{}  в {}'.format(today, vrem), color = discord.Color.red())
 	await ctx.channel.purge(limit = 1)#удаляем сообщение с этой командой из чата
@@ -418,7 +418,7 @@ async def ban(ctx, member: discord.Member, *, reason = None):
 
 #unban
 @Bot.command(pass_context = True)
-@commands.has_any_role("712387936347488281","" )
+@commands.has_any_role("⚒ Красная администрация ⚒","" )
 async def unban(ctx, *, member):
 	banned_users = await ctx.guild.bans()
 	member_name, member_discriminator = member.split('#')
@@ -442,7 +442,7 @@ async def unban(ctx, *, member):
 
 #clear
 @Bot.command()
-@commands.has_any_role("712387936347488281","")
+@commands.has_any_role("⚒ Красная администрация ⚒","")
 async def clear(ctx, amount = 100):
 	await ctx.channel.purge(limit = amount)
 	emb = discord.Embed(title = 'Чат очищен администрацией.')
@@ -451,7 +451,7 @@ async def clear(ctx, amount = 100):
 
 #unmute
 @Bot.command()
-@commands.has_any_role("712387936347488281","" )
+@commands.has_any_role("⚒ Красная администрация ⚒","" )
 async def unmute(ctx, member: discord.Member):
 	await ctx.channel.purge(limit = 1)
 
@@ -466,7 +466,7 @@ async def unmute(ctx, member: discord.Member):
 
 #mute
 @Bot.command()
-@commands.has_any_role("712387936347488281","" )
+@commands.has_any_role("⚒ Красная администрация ⚒","" )
 async def mute(ctx,  member: discord.Member, time: int, reason = None):
 	await ctx.channel.purge(limit = 1)
 	mute_role = discord.utils.get( ctx.message.guild.roles, name = 'mute')
@@ -500,7 +500,7 @@ async def role(ctx, role: str ):
 		else:
 			k = k+1
 	if k < 3:
-		if str(role) != "Кент" and str(role) != "Приблатнённый" and str(role) != "Блатная":
+		if str(role) != "BOT" and str(role) != "⚒ Красная администрация ⚒" and str(role) != "":
 			await member.add_roles( role )
 			await ctx.send(f"""  { member.mention } ```fix\n получил роль { role }!\n``` """)
 		else:
@@ -511,7 +511,7 @@ async def role(ctx, role: str ):
 
 #giverole
 @Bot.command()
-@commands.has_any_role("712387936347488281","" )
+@commands.has_any_role("⚒ Красная администрация ⚒","" )
 async def giverole(ctx, member: discord.Member, role: str ):
 	await ctx.channel.purge(limit = 1)
 	role = discord.utils.get( ctx.message.guild.roles, name = role)
@@ -520,7 +520,7 @@ async def giverole(ctx, member: discord.Member, role: str ):
 
 #removerole
 @Bot.command()
-@commands.has_any_role("712387936347488281","" )
+@commands.has_any_role("⚒ Красная администрация ⚒","" )
 async def removerole(ctx, member: discord.Member, role: str ):
 	await ctx.channel.purge(limit = 1)
 	role = discord.utils.get( ctx.message.guild.roles, name = role)
