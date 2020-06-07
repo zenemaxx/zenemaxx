@@ -386,7 +386,7 @@ async def профиль(ctx, ):
     await ctx.message.channel.send(embed = emb)
 
 @Bot.command( pass_context = True )
-@commands.has_any_role("Техник" )
+@commands.has_any_role("⚒ Красная администрация ⚒" )
 async def деньги(ctx, member: discord.Member, mani: int ):
 	m[str(member.id)]["money"] += int(mani)
 	await ctx.message.channel.send('Бабло зачислено')
@@ -395,7 +395,7 @@ async def деньги(ctx, member: discord.Member, mani: int ):
 
 #kick
 @Bot.command( pass_context = True )
-@commands.has_any_role("Приблатнённый","Блатная" )
+@commands.has_any_role("⚒ Красная администрация ⚒","❖ Developer Discord ❖" )
 async def  kick(ctx, member: discord.Member, *, reason = None):
 	await ctx.channel.purge(limit = 1)#СТИРАЕМ СООБЩЕНИЕ С КОММАНДОЙ .kcik
 	emb = discord.Embed(title = '{}  в {}'.format(today, vrem), color = discord.Color.red())
