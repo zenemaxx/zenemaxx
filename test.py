@@ -475,7 +475,7 @@ async def unmute(ctx, member: discord.Member):
 @commands.has_any_role("⚒ Красная администрация ⚒","" )
 async def mute(ctx,  member: discord.Member, time: int, reason = None):
 	await ctx.channel.purge(limit = 1)
-	mute_role = discord.utils.get( ctx.message.guild.roles, name = 'mute')
+	mute_role = discord.utils.get( ctx.message.guild.roles, name = 'Заглушка')
 	await member.add_roles( mute_role )
 	
 
