@@ -11,6 +11,12 @@ import asyncio
 import os
 import json
 import random
+#список запрещенных слов.
+EXROLE = 712387936049692782
+
+YOURGUILDSID = 712387936049692782
+YOURID = 315493184853639169
+YOURFILENAME = "xp.json" # with .json (or txt, etc. at the and)
 
 today = datetime.now().date()
 tm = datetime.now()
