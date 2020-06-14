@@ -387,7 +387,7 @@ async def профиль(ctx, ):
     await ctx.message.channel.send(embed = emb)
 
 @Bot.command( pass_context = True )
-@commands.has_any_role("Техник" )
+@commands.has_any_role("❖ Developer Discord ❖" )
 async def деньги(ctx, member: discord.Member, mani: int ):
 	m[str(member.id)]["money"] += int(mani)
 	await ctx.message.channel.send('Бабло зачислено')
