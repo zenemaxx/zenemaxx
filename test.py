@@ -113,23 +113,7 @@ async def setnick(ctx, member: discord.Member, nick1=None, nick2=" " ):
     nick = nick1+' '+nick2
     await member.edit(nick=nick)
     await ctx.send(f'{ctx.message.author} changed nickname for {member.mention}')
-#Doesn't work
-@Bot.command()
-async def rgb (ctx):
-	while True:
-		role = discord.utils.get( ctx.message.guild.roles, name = 'ЛГБТ')
-		await role.edit( reason=None,colour = discord.Colour(0xff0000))
-		await asyncio.sleep(2)
-		await role.edit( reason=None,colour = discord.Color(0xff8800))
-		await asyncio.sleep(2)
-		await role.edit( reason=None, colour = discord.Colour(0xffff00))
-		await asyncio.sleep(2)
-		await role.edit( reason=None,colour = discord.Color(0x2bff00))
-		await asyncio.sleep(2)
-		await role.edit( reason=None,colour = discord.Color(0x002bff))
-		await asyncio.sleep(2)
-		await role.edit( reason=None,colour = discord.Color(0x6a00ff))
-		await asyncio.sleep(2)	
+
 #Help
 @Bot.command()
 async def help ( ctx ):
